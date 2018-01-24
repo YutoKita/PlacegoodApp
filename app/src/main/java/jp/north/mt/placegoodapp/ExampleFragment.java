@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-/**
- * Created by yuki on 2016/09/28.
- */
-
 public class ExampleFragment extends Fragment {
     private final static String BACKGROUND_COLOR = "background_color";
 

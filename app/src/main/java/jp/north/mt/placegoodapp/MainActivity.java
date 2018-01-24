@@ -15,7 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setViews();
+        setTitle("Place Good！");
     }
+
 
     private void setViews() {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
