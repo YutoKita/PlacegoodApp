@@ -27,6 +27,12 @@ public class ExampleFragmentPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public CharSequence getPageTitle(int position) {
-        return "ページ" + (position + 1);
+        switch (position) {
+            case 0:
+                return "List";
+            case 1:
+                return "Map";
+        }
+        return null;
     }
 }
