@@ -15,7 +15,7 @@ public class ExampleFragmentPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ExampleFragment.newInstance(android.R.color.holo_blue_bright);
             case 1:
-                return ExampleFragment.newInstance(android.R.color.holo_green_light);
+                return MapActivity.newInstance(R.id.map);
         }
         return null;
     }
