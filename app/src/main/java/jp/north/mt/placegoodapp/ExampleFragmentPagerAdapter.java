@@ -4,6 +4,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.google.android.gms.maps.MapFragment;
+
 public class ExampleFragmentPagerAdapter extends FragmentPagerAdapter {
     public ExampleFragmentPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -15,7 +17,7 @@ public class ExampleFragmentPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return ExampleFragment.newInstance(android.R.color.holo_blue_bright);
             case 1:
-                return MapActivity.newInstance(R.id.map);
+                return MapsFragment.newInstance();
         }
         return null;
     }
