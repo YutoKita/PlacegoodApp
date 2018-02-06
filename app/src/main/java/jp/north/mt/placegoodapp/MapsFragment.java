@@ -42,9 +42,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        // Add a marker in Sydney and move the camera
         LatLng sydney = new LatLng(-34, 151);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        //LocationManagerの取得
+//        LocationManager locationManager = (LocationManager)this.getSystemService(Context.LOCATION_SERVICE);
+//GPSから現在地の情報を取得
+//        Location myLocate = locationManager.getLastKnownLocation("gps");
     }
 }
