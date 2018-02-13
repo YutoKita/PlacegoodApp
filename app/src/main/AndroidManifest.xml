@@ -2,10 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="jp.north.mt.placegoodapp">
 
+    <!--インターネットへの接続許可-->
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <!--GPSの利用権限-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!--エミュレータにてGPSを利用する場合の権限-->
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION">
+    </uses-permission>
 
     <application
         android:name=".ListdataApp"

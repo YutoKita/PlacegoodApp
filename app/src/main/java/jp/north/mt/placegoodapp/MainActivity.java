@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setViews();
         setTitle("Place Good！");
 
-        Log.d("MainActivity", "onCreate()");
 
         if (Build.VERSION.SDK_INT >= 23) {
             checkPermission();
