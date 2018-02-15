@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -42,16 +43,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        //現在地の座標を取得
         //LocationManagerの取得
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        //GPSから現在地の情報を取得
-        if (ActivityCompat.checkSelfPermission(getActivity()
-                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity()
-                , Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        //パーミッション（※Fragmentのため、thisではなく、getActivity()で親のActivityを呼び出し）
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //現在地の座標を取得
             mMap.setMyLocationEnabled(true);
         }
-        Location myLocate = locationManager.getLastKnownLocation("gps");
+//        Location myLocate = locationManager.getLastKnownLocation("gps");
+
+    }
+    @Override
+    public void onLocationChanged(Location location){
+        TextView textView1 = (TextView)findViewById(R.id.center_location_textView);
+        textView1.setText("Latitude:Longitude - "
+                +String.valueOf(location.getLatitude()) +":"+String.valueOf(location.getLongitude()));
+
 
     }
 }

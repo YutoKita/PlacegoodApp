@@ -13,4 +13,11 @@
         android:layout_height="match_parent"
         tools:context="jp.north.mt.maptestapp.MapsFragment"/>
 
+    <TextView
+        android:id="@+id/center_location_textView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom|left"
+        android:textSize="20dp"/>
+
 </LinearLayout>
