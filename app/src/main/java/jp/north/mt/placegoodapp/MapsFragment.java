@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+
+import java.util.Locale;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
@@ -52,14 +55,45 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             mMap.setMyLocationEnabled(true);
         }
 //        Location myLocate = locationManager.getLastKnownLocation("gps");
-
     }
-    @Override
-    public void onLocationChanged(Location location){
-        TextView textView1 = (TextView)findViewById(R.id.center_location_textView);
-        textView1.setText("Latitude:Longitude - "
-                +String.valueOf(location.getLatitude()) +":"+String.valueOf(location.getLongitude()));
 
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            double latitude = location.getLatitude();
+            double longitude = location.getLongitude();
+            textView.setText(String.format(Locale.US, "%f,%f", latitude, longitude));
+        }
 
-    }
+        @Override
+        public void onStatusChanged(String s, int i, Bundle bundle) {
+
+        }
+
+        @Override
+        public void onProviderEnabled(String s) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String s) {
+
+        }
+    };
+    LocationManager locationManager;
+
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+//        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+//    }
+//
+//    @Override
+//    public void onStop() {
+//        super.onStop();
+//        locationManager.removeUpdates(locationListener);
+//    }
+
 }
+

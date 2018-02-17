@@ -14,7 +14,7 @@
         tools:context="jp.north.mt.maptestapp.MapsFragment"/>
 
     <TextView
-        android:id="@+id/center_location_textView"
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="bottom|left"
