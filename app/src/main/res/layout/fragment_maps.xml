@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -14,10 +15,7 @@
         tools:context="jp.north.mt.maptestapp.MapsFragment"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="bottom|left"
-        android:textSize="20dp"/>
-
+        android:layout_height="match_parent"/>
 </LinearLayout>
