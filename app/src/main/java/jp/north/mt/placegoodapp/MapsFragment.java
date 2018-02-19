@@ -35,7 +35,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
     @Override
     public void onLocationChanged(Location location) {
-        String longitude = String.valueOf(location.getLatitude());
+        String longitude = String.valueOf(location.getLongitude());
 //        float latitude = Double.valueOf(location.getLatitude()).floatValue();
         String latitude = String.valueOf(location.getLatitude());
         Log.d("MapsFragment", String.format("lon:%f lat:%f", longitude, latitude));
