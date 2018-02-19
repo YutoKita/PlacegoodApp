@@ -1,7 +1,6 @@
 package jp.north.mt.placegoodapp;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -15,23 +14,31 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
-import java.util.Locale;
-
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
+    private TextView textView;
 
     public static MapsFragment newInstance() {
         MapsFragment fragment = new MapsFragment();
         return fragment;
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+        String longitude = String.valueOf(location.getLatitude());
+//        float latitude = Double.valueOf(location.getLatitude()).floatValue();
+        String latitude = String.valueOf(location.getLatitude());
+        Log.d("MapsFragment", String.format("lon:%f lat:%f", longitude, latitude));
     }
 
     @Nullable
@@ -42,6 +49,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.fragment_maps);
         mapFragment.getMapAsync(this);
+
+        textView = (TextView) view.findViewById(R.id.fragment_maps);
+        textView.setText(String.valueOf(location.getLatitude()));
 
         return view;
     }
@@ -61,14 +71,10 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     }
 
     private LocationManager mLocationManager;
-
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_maps);
-//
-//        mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-//    }
+    //30秒に1度更新する
+    private final int LOCATION_UPDATE_MIN_TIME = 1 * 1000;
+    //10m移動する度に更新する
+    private final int LOCATION_UPDATE_MIN_DISTANCE = 3;
 
     @Override
     public void onResume() {
@@ -79,7 +85,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
             }
             mLocationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
-//                LocationManager.NETWORK_PROVIDER,
                     0,
                     0,
                     this);
@@ -97,15 +102,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         super.onPause();
     }
 
-
-    @Override
-    public void onLocationChanged(Location location) {
-        final float longitude = Double.valueOf(location.getLongitude()).floatValue();
-        final float latitude = Double.valueOf(location.getLatitude()).floatValue();;
-
-        Log.e("MapFragment", String.format("lon:%f lat:%f", longitude, latitude));
-    }
-
     @Override
     public void onProviderDisabled(String provider) {
 
@@ -120,13 +116,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     public void onStatusChanged(String provider, int status, Bundle extras) {
         switch (status) {
             case LocationProvider.AVAILABLE:
-                Log.v("Status", "AVAILABLE");
+                Log.d("Status", "AVAILABLE");
                 break;
             case LocationProvider.OUT_OF_SERVICE:
-                Log.v("Status", "OUT_OF_SERVICE");
+                Log.d("Status", "OUT_OF_SERVICE");
                 break;
             case LocationProvider.TEMPORARILY_UNAVAILABLE:
-                Log.v("Status", "TEMPORARILY_UNAVAILABLE");
+                Log.d("Status", "TEMPORARILY_UNAVAILABLE");
                 break;
         }
     }
