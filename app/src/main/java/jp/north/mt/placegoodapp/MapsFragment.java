@@ -1,7 +1,9 @@
 package jp.north.mt.placegoodapp;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +16,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -26,7 +27,10 @@ import static android.content.Context.LOCATION_SERVICE;
 public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
-    private TextView textView;
+    private TextView textView1;
+    private TextView textView2;
+    private Location mlocation;
+    private LocationManager locationManager = null;
 
     public static MapsFragment newInstance() {
         MapsFragment fragment = new MapsFragment();
@@ -35,10 +39,34 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
     @Override
     public void onLocationChanged(Location location) {
+        mlocation = location;
         String longitude = String.valueOf(location.getLongitude());
-//        float latitude = Double.valueOf(location.getLatitude()).floatValue();
         String latitude = String.valueOf(location.getLatitude());
-        Log.d("MapsFragment", String.format("lon:%f lat:%f", longitude, latitude));
+        Log.d("MapsFragment", String.format("lon:" + longitude + ", lat: " + latitude));
+        textView1.setText(String.valueOf(location.getLatitude()));
+        textView2.setText(String.valueOf(location.getLongitude()));
+
+    }
+
+    private void startLocation() {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            locationManager = (LocationManager) getActivity().getSystemService(Activity.LOCATION_SERVICE);
+
+            //位置測位プロバイダを決定する
+            Criteria criteria = new Criteria();
+            criteria.setAccuracy(Criteria.ACCURACY_COARSE);
+            criteria.setPowerRequirement(Criteria.POWER_MEDIUM);
+            criteria.setBearingRequired(false);
+            criteria.setSpeedRequired(false);
+            criteria.setAltitudeRequired(false);
+            String bestProvider = locationManager.getBestProvider(criteria, true);
+
+            //測位を開始する
+            locationManager.requestLocationUpdates(bestProvider,
+                    LOCATION_UPDATE_MIN_TIME, LOCATION_UPDATE_MIN_DISTANCE, this);
+        }
     }
 
     @Nullable
@@ -50,8 +78,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                 .findFragmentById(R.id.fragment_maps);
         mapFragment.getMapAsync(this);
 
-        textView = (TextView) view.findViewById(R.id.fragment_maps);
-        textView.setText(String.valueOf(location.getLatitude()));
+        textView1 = (TextView) view.findViewById(R.id.textView_latitude);
+        textView2 = (TextView) view.findViewById(R.id.textView_longitude);
+        startLocation();
 
         return view;
     }
@@ -70,20 +99,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         }
     }
 
-    private LocationManager mLocationManager;
-    //30秒に1度更新する
-    private final int LOCATION_UPDATE_MIN_TIME = 1 * 1000;
-    //10m移動する度に更新する
-    private final int LOCATION_UPDATE_MIN_DISTANCE = 3;
+    //15秒に1度更新する
+    private final int LOCATION_UPDATE_MIN_TIME = 15 * 1000;
+    //5m移動する度に更新する
+    private final int LOCATION_UPDATE_MIN_DISTANCE = 5;
 
     @Override
     public void onResume() {
-        if (mLocationManager != null) {
+        if (locationManager != null) {
             if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 return;
             }
-            mLocationManager.requestLocationUpdates(
+            locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER,
                     0,
                     0,
@@ -95,8 +123,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
     @Override
     public void onPause() {
-        if (mLocationManager != null) {
-            mLocationManager.removeUpdates(this);
+        if (locationManager != null) {
+            locationManager.removeUpdates(this);
         }
 
         super.onPause();
