@@ -15,7 +15,7 @@ public class ExampleFragmentPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return ExampleFragment.newInstance(android.R.color.holo_blue_bright);
+                return ListFragment.newInstance(android.R.color.holo_blue_bright);
             case 1:
                 return MapsFragment.newInstance();
         }

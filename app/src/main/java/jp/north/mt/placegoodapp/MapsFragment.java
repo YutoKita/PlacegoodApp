@@ -17,14 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private TextView textView1;
@@ -45,6 +49,12 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         Log.d("MapsFragment", String.format("lon:" + longitude + ", lat: " + latitude));
         textView1.setText(String.valueOf(location.getLatitude()));
         textView2.setText(String.valueOf(location.getLongitude()));
+
+        //現在地にマーカーをつける
+        mMap.addMarker(new MarkerOptions()
+//                .position(new LatLng(mlocation.getLongitude(), mlocation.getLatitude()))
+                .position(new LatLng(10, 10))
+                .title("Hello world"));
 
     }
 
@@ -88,6 +98,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+//        mlocation = location;
 
         //LocationManagerの取得
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
@@ -96,7 +107,32 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                 && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             //現在地の座標を取得
             mMap.setMyLocationEnabled(true);
+            // Set a listener for marker click.
+            mMap.setOnMarkerClickListener(this);
+
         }
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+
+        // Retrieve the data from the marker.
+        Integer clickCount = (Integer) marker.getTag();
+
+        // Check if a click count was set, then display the click count.
+        if (clickCount != null) {
+            clickCount = clickCount + 1;
+            marker.setTag(clickCount);
+            Toast.makeText(getActivity(),
+                    marker.getTitle() +
+                            " has been clicked " + clickCount + " times.",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        // Return false to indicate that we have not consumed the event and that we wish
+        // for the default behavior to occur (which is for the camera to move such that the
+        // marker is centered and for the marker's info window to open, if it has one).
+        return false;
     }
 
     //15秒に1度更新する

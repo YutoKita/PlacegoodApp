@@ -7,72 +7,82 @@ import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Listdata extends RealmObject implements Serializable {
-    private Date date; //日時
-    private String title; //タイトル
-    private String place; //場所
-    private int latitude; //緯度
-    private int longitude; //経度
-    private String comment; //コメント
-    private byte[] BitmapArray; //写真
+    private Date mDate; //日時
+    private String mTitle; //タイトル
+    private String mPlace; //場所
+    private int mLatitude; //緯度
+    private int mLongitude; //経度
+    private String mComment; //コメント
+    private byte[] mBitmapArray; //写真
 
     //id をプライマリーキーとして設定
     @PrimaryKey
     private int id;
 
     public Date getDate() {
-        return date;
+        return mDate;
     }
 
     public void setDate(Date date) {
-        this.date = date;
+        this.mDate = date;
     }
 
     public String getTitle() {
-        return title;
+        return mTitle;
     }
 
     public void setTitle(String title) {
-        this.title = title;
+        this.mTitle = title;
     }
 
     public String getPlace() {
-        return place;
+        return mPlace;
     }
 
     public void setPlace(String place) {
-        this.place = place;
+        this.mPlace = place;
     }
 
     public int getLatitude() {
-        return latitude;
+        return mLatitude;
     }
 
     public void setLatitude(int latitude) {
-        this.latitude = latitude;
+        this.mLatitude = latitude;
     }
 
     public int getLongitude() {
-        return longitude;
+        return mLongitude;
     }
 
     public void setLongitude(int longitude) {
-        this.longitude = longitude;
+        this.mLongitude = longitude;
     }
 
     public String getComment() {
-        return comment;
+        return mComment;
     }
 
     public void setComment(String comment) {
-        this.comment = comment;
+        this.mComment = comment;
     }
 
     public byte[] getImageBytes() {
-        return BitmapArray;
+        return mBitmapArray;
     }
 
     public void setImageBytes(byte[] bitmapArray) {
-        this.BitmapArray = bitmapArray;
+        this.mBitmapArray = bitmapArray;
+    }
+
+    public Listdata(Date date, String title, String place, int latitude, int longitude, String comment, byte[] bytes) {
+        mDate = date;
+        mTitle = title;
+        mPlace = place;
+        mLatitude = latitude;
+        mLongitude = longitude;
+        mComment = comment;
+        mBitmapArray = bytes.clone();
     }
 
 
