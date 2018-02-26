@@ -10,18 +10,23 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
-public class ListAdapter extends BaseAdapter{
+public class ListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
     private ArrayList<Listdata> mTaskList;
 
     public ListAdapter(Context context) {
-        mLayoutInflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-
+    public void setTaskList(ArrayList<Listdata> taskList) {
+        mTaskList = taskList;
+    }
 
     @Override
     public int getCount() {
@@ -40,26 +45,38 @@ public class ListAdapter extends BaseAdapter{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.fragment_list, parent, false);
         }
 
+        //タイトル
         TextView titleText = (TextView) convertView.findViewById(R.id.titleTextView);
         titleText.setText(mTaskList.get(position).getTitle());
 
-        TextView nameText = (TextView) convertView.findViewById(R.id.nameTextView);
-        nameText.setText(mTaskList.get(position).getName());
+        //現在日時、時間
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.JAPANESE);
+        Date date = mTaskList.get(position).getDate();
+        TextView dateText = (TextView) convertView.findViewById(R.id.dateTextView);
+        dateText.setText(simpleDateFormat.format(date));
 
-        TextView resText = (TextView) convertView.findViewById(R.id.resTextView);
-        int resNum = mTaskList.get(position).getAnswers().size();
-        resText.setText(String.valueOf(resNum));
+        //場所
+        TextView placeText = (TextView) convertView.findViewById(R.id.placeTextView);
+        placeText.setText(mTaskList.get(position).getPlace());
 
+        //緯度
+        TextView latitudeText = (TextView) convertView.findViewById(R.id.latitudeTextView);
+        placeText.setText(mTaskList.get(position).getLatitude());
+
+        //経度
+        TextView longitudeText = (TextView) convertView.findViewById(R.id.longitudeTextView);
+        placeText.setText(mTaskList.get(position).getLongitude());
+
+        //コメント
+        TextView commentText = (TextView) convertView.findViewById(R.id.commentTextView);
+        placeText.setText(mTaskList.get(position).getComment());
+
+        //写真
         byte[] bytes = mTaskList.get(position).getImageBytes();
         if (bytes.length != 0) {
             Bitmap image = BitmapFactory.decodeByteArray(bytes, 0, bytes.length).copy(Bitmap.Config.ARGB_8888, true);
@@ -68,8 +85,5 @@ public class ListAdapter extends BaseAdapter{
         }
 
         return convertView;
-    }
-    public void setTaskList(ArrayList<Listdata> taskList) {
-        mTaskList = taskList;
     }
 }

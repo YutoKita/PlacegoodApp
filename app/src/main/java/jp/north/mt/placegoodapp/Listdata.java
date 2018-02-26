@@ -19,20 +19,20 @@ public class Listdata extends RealmObject implements Serializable {
     @PrimaryKey
     private int id;
 
-    public Date getDate() {
-        return mDate;
-    }
-
-    public void setDate(Date date) {
-        this.mDate = date;
-    }
-
     public String getTitle() {
         return mTitle;
     }
 
     public void setTitle(String title) {
         this.mTitle = title;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        this.mDate = date;
     }
 
     public String getPlace() {
@@ -76,8 +76,8 @@ public class Listdata extends RealmObject implements Serializable {
     }
 
     public Listdata(Date date, String title, String place, int latitude, int longitude, String comment, byte[] bytes) {
-        mDate = date;
         mTitle = title;
+        mDate = date;
         mPlace = place;
         mLatitude = latitude;
         mLongitude = longitude;
