@@ -18,13 +18,13 @@ import java.util.Locale;
 
 public class ListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
-    private ArrayList<Listdata> mTaskList;
+    private List<Listdata> mTaskList;
 
     public ListAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setTaskList(ArrayList<Listdata> taskList) {
+    public void setTaskList(List<Listdata> taskList) {
         mTaskList = taskList;
     }
 
