@@ -15,6 +15,11 @@ public class Listdata extends RealmObject implements Serializable {
     private String mComment; //コメント
     private byte[] mBitmapArray; //写真
 
+    //引数なしのコンストラクタを追加(エラー「Class "Listdata" must declare a public constructor with no arguments if it contains custom constructors.」対応)
+    public Listdata (){
+        super();
+    }
+
     //id をプライマリーキーとして設定
     @PrimaryKey
     private int id;
@@ -84,6 +89,4 @@ public class Listdata extends RealmObject implements Serializable {
         mComment = comment;
         mBitmapArray = bytes.clone();
     }
-
-
 }
