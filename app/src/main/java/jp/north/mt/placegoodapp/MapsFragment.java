@@ -50,10 +50,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         textView1.setText(String.valueOf(location.getLatitude()));
         textView2.setText(String.valueOf(location.getLongitude()));
 
+        //マーカーは数値が変動すると付かないため、一度変数に入れる。（できれば固定値(final)が望ましい）
+        double lat = mlocation.getLatitude();
+        double lng = mlocation.getLongitude();
+
         //現在地にマーカーをつける
         mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(mlocation.getLongitude(), mlocation.getLatitude()))
-                .position(new LatLng(10, 10))
+//                .position(new LatLng(lat, lng))
+                .position(new LatLng(10.1111, 10.1111))
                 .title("Hello world"));
 
     }
