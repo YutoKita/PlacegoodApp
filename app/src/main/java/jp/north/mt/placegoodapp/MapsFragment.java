@@ -10,12 +10,14 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,6 +37,8 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     private TextView textView2;
     private Location mlocation;
     private LocationManager locationManager = null;
+    //検索ボタン機能追加のためメンバ変数追加
+    Button mRegist_button;
 
     public static MapsFragment newInstance() {
         MapsFragment fragment = new MapsFragment();
@@ -59,7 +63,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 //                .position(new LatLng(lat, lng))
                 .position(new LatLng(10.1111, 10.1111))
                 .title("Hello world"));
-
     }
 
     private void startLocation() {
@@ -86,7 +89,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_maps, null, false);
+        View view = inflater.inflate(R.layout.fragment_maps, container, false);
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.fragment_maps);
@@ -95,6 +98,17 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         textView1 = (TextView) view.findViewById(R.id.textView_latitude);
         textView2 = (TextView) view.findViewById(R.id.textView_longitude);
         startLocation();
+
+        //登録ボタンを押した時の処理
+//        Button button = (Button) getActivity().findViewById(R.id.regist_button);
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            //テスト
+//            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "hoge!", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
 
         return view;
     }
