@@ -2,6 +2,7 @@ package jp.north.mt.placegoodapp;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
@@ -100,14 +101,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         startLocation();
 
         //登録ボタンを押した時の処理
-//        Button button = (Button) getActivity().findViewById(R.id.regist_button);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            //テスト
-//            public void onClick(View v) {
-//                Toast.makeText(getActivity(), "hoge!", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        Button button = (Button) getActivity().findViewById(R.id.regist_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //テスト
+                //Toast.makeText(getActivity(), "hoge!", Toast.LENGTH_SHORT).show();
+                //intent.putExtraはintentに処理を渡す
+                Intent intent = new Intent(getActivity(), InputTask.class);
+            }
+        });
 
 
         return view;
