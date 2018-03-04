@@ -11,6 +11,8 @@ public class InputTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_input);
+        //登録画面でツールバーに"Memo"の文字を入力
+        setTitle("Memo");
 
         Intent intent = getIntent();
         double value1 = intent.getDoubleExtra("VALUE1", 0);
