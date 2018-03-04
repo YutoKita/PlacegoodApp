@@ -40,12 +40,37 @@ public class ListFragment extends Fragment {
 
     private ListView mListView;
     private ListAdapter mTaskAdapter;
-
     ListView listView1;
 
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-//        View view = inflater.inflate(R.layout.fragment_list, container, false);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_list, container, false);
+        // Realmの設定
+        mRealm = Realm.getDefaultInstance();
+        mRealm.addChangeListener(mRealmListener);
+
+        // ListViewの設定
+        mTaskAdapter = new ListAdapter(getActivity());
+        mListView = (ListView) view.findViewById(R.id.listView1);
+
+        // ListViewをタップしたときの処理
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 入力・編集する画面に遷移させる
+            }
+        });
+
+        // ListViewを長押ししたときの処理
+        mListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                return true;
+            }
+        });
+        reloadListView();
+        return view;
+    }
 
     //ExampleFragmentPagerAdapter.javaから呼び出せるように記載
     public static ListFragment newInstance() {
@@ -64,21 +89,10 @@ public class ListFragment extends Fragment {
         mTaskAdapter.notifyDataSetChanged();
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//
-//        mRealm.close();
-//    }
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
 
-//    private void addTaskForTest() {
-//        Task task = new Task();
-//        task.setTitle("作業");
-//        task.setContents("プログラムを書いてPUSHする");
-//        task.setDate(new Date());
-//        task.setId(0);
-//        mRealm.beginTransaction();
-//        mRealm.copyToRealmOrUpdate(task);
-//        mRealm.commitTransaction();
-//}
+        mRealm.close();
+    }
 }

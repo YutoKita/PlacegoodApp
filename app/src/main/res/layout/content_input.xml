@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context="jp.north.mt.placegoodapp.InputTask">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="タイトル"
+        android:id="@+id/titleTextView"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/titleText"
+        android:gravity="top"
+        android:inputType="text"
+        android:layout_below="@+id/titleTextView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="場所"
+        android:id="@+id/placeTextView"
+        android:layout_below="@+id/titleText"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/placeBodyText"
+        android:inputType="textMultiLine"
+        android:maxLines="3"
+        android:gravity="top"
+        android:layout_below="@+id/placeTextView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="緯度・経度"
+        android:id="@+id/latitudeTextView"
+        android:layout_below="@+id/placeBodyText"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="119.2222 , 117.11111"
+        android:id="@+id/latlngBodyText"
+        android:gravity="top"
+        android:layout_below="@+id/latitudeTextView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="コメント"
+        android:id="@+id/commentTextView"
+        android:layout_below="@+id/latlngBodyText"
+        android:layout_alignParentStart="true"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/commentBodyText"
+        android:inputType="textMultiLine"
+        android:maxLines="50"
+        android:gravity="top"
+        android:layout_below="@+id/commentTextView"
+        android:layout_alignParentStart="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添付画像"
+        android:id="@+id/imageTextView"
+        android:layout_below="@+id/commentBodyText"
+        android:layout_alignParentStart="true"/>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imageView"
+        android:layout_below="@+id/imageTextView"
+        android:background="#d3d3d3"
+        android:layout_centerHorizontal="true"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="登録"
+        android:id="@+id/registButton"
+        android:layout_below="@+id/imageView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"/>
+
+</RelativeLayout>
