@@ -40,5 +40,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView_latitude"
             android:layout_weight="1"/>
+
     </LinearLayout>
 </LinearLayout>

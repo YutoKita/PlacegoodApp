@@ -53,7 +53,7 @@
         android:layout_below="@+id/placeBodyText"
         android:layout_alignParentStart="true"/>
 
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="119.2222 , 117.11111"

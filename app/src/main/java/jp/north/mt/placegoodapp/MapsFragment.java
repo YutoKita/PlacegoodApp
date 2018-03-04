@@ -101,18 +101,21 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         startLocation();
 
         //登録ボタンを押した時の処理
-        Button button = (Button) getActivity().findViewById(R.id.regist_button);
+        Button button = (Button) view.findViewById(R.id.regist_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //テスト
                 //Toast.makeText(getActivity(), "hoge!", Toast.LENGTH_SHORT).show();
+                double lat = mlocation.getLatitude();
+                double lng = mlocation.getLongitude();
                 //intent.putExtraはintentに処理を渡す
                 Intent intent = new Intent(getActivity(), InputTask.class);
+                intent.putExtra("VALUE1", lat);
+                intent.putExtra("VALUE2", lng);
+                startActivity(intent);
             }
         });
-
-
         return view;
     }
 

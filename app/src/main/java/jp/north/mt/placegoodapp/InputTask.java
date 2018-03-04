@@ -1,6 +1,5 @@
 package jp.north.mt.placegoodapp;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -15,10 +14,10 @@ public class InputTask extends AppCompatActivity {
 
         Intent intent = getIntent();
         double value1 = intent.getDoubleExtra("VALUE1", 0);
+        double value2 = intent.getDoubleExtra("VALUE2", 0);
 
-        TextView textView = (TextView) findViewById(R.id.latitudeTextView);
-        textView.setText(String.valueOf(value1));
-
+        TextView textView = (TextView) findViewById(R.id.latlngBodyText);
+        textView.setText(String.valueOf(value1) + "," + String.valueOf(value2));
 
     }
 }
