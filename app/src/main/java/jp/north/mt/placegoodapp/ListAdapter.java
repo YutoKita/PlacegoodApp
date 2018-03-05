@@ -18,13 +18,13 @@ import java.util.Locale;
 
 public class ListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
-    private List<Listdata> mTaskList;
+    private List<Task> mTaskList;
 
     public ListAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setTaskList(List<Listdata> taskList) {
+    public void setTaskList(List<Task> taskList) {
         mTaskList = taskList;
     }
 
@@ -73,8 +73,8 @@ public class ListAdapter extends BaseAdapter {
         placeText.setText(mTaskList.get(position).getLongitude());
 
         //コメント
-        TextView commentText = (TextView) convertView.findViewById(R.id.commentTextView);
-        placeText.setText(mTaskList.get(position).getComment());
+        TextView contentText = (TextView) convertView.findViewById(R.id.contentTextView);
+        placeText.setText(mTaskList.get(position).getContent());
 
         //写真
         byte[] bytes = mTaskList.get(position).getImageBytes();

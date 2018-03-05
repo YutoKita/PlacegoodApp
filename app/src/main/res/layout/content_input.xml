@@ -59,7 +59,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="119.2222 , 117.11111"
+        android:text="0 , 0"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
         android:id="@+id/latlngBodyText"
         android:gravity="top"
         android:layout_below="@+id/latitudeTextView"
@@ -69,18 +73,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="コメント"
-        android:id="@+id/commentTextView"
+        android:id="@+id/contentTextView"
         android:layout_below="@+id/latlngBodyText"
         android:layout_alignParentStart="true"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/commentBodyText"
+        android:id="@+id/contentBodyText"
         android:inputType="textMultiLine"
         android:maxLines="50"
         android:gravity="top"
-        android:layout_below="@+id/commentTextView"
+        android:layout_below="@+id/contentTextView"
         android:layout_alignParentStart="true"/>
 
     <TextView
@@ -88,7 +92,7 @@
         android:layout_height="wrap_content"
         android:text="添付画像"
         android:id="@+id/imageTextView"
-        android:layout_below="@+id/commentBodyText"
+        android:layout_below="@+id/contentBodyText"
         android:layout_alignParentStart="true"/>
 
     <ImageView
@@ -102,8 +106,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="登録"
-        android:id="@+id/registButton"
+        android:text="決定"
+        android:id="@+id/done_button"
         android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"/>

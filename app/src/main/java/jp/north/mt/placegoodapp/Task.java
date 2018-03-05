@@ -6,17 +6,17 @@ import java.util.Date;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Listdata extends RealmObject implements Serializable {
+public class Task extends RealmObject implements Serializable {
     private Date mDate; //日時
     private String mTitle; //タイトル
     private String mPlace; //場所
     private int mLatitude; //緯度
     private int mLongitude; //経度
-    private String mComment; //コメント
+    private String mContent; //コメント
     private byte[] mBitmapArray; //写真
 
-    //引数なしのコンストラクタを追加(エラー「Class "Listdata" must declare a public constructor with no arguments if it contains custom constructors.」対応)
-    public Listdata (){
+    //引数なしのコンストラクタを追加(エラー「Class "Task" must declare a public constructor with no arguments if it contains custom constructors.」対応)
+    public Task (){
         super();
     }
 
@@ -64,12 +64,12 @@ public class Listdata extends RealmObject implements Serializable {
         this.mLongitude = longitude;
     }
 
-    public String getComment() {
-        return mComment;
+    public String getContent() {
+        return mContent;
     }
 
-    public void setComment(String comment) {
-        this.mComment = comment;
+    public void setContent(String content) {
+        this.mContent = content;
     }
 
     public byte[] getImageBytes() {
@@ -80,13 +80,13 @@ public class Listdata extends RealmObject implements Serializable {
         this.mBitmapArray = bitmapArray;
     }
 
-    public Listdata(Date date, String title, String place, int latitude, int longitude, String comment, byte[] bytes) {
+    public Task(Date date, String title, String place, int latitude, int longitude, String content, byte[] bytes) {
         mTitle = title;
         mDate = date;
         mPlace = place;
         mLatitude = latitude;
         mLongitude = longitude;
-        mComment = comment;
+        mContent = content;
         mBitmapArray = bytes.clone();
     }
 }
