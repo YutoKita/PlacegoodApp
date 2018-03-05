@@ -17,7 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     private final int REQUEST_PERMISSION = 10;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

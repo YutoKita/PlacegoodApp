@@ -3,6 +3,7 @@ package jp.north.mt.placegoodapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 public class InputTask extends AppCompatActivity {
@@ -12,6 +13,8 @@ public class InputTask extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_input);
         //登録画面でツールバーに"Memo"の文字を入力
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
         setTitle("Memo");
 
         Intent intent = getIntent();
