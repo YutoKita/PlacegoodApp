@@ -6,17 +6,17 @@ import java.util.Date;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Task extends RealmObject implements Serializable {
-    private Date mDate; //日時
+public class Listdata extends RealmObject implements Serializable {
     private String mTitle; //タイトル
+    private Date mDate; //日時
     private String mPlace; //場所
     private int mLatitude; //緯度
     private int mLongitude; //経度
     private String mContent; //コメント
     private byte[] mBitmapArray; //写真
 
-    //引数なしのコンストラクタを追加(エラー「Class "Task" must declare a public constructor with no arguments if it contains custom constructors.」対応)
-    public Task (){
+    //引数なしのコンストラクタを追加(エラー「Class "Listdata" must declare a public constructor with no arguments if it contains custom constructors.」対応)
+    public Listdata(){
         super();
     }
 
@@ -88,7 +88,7 @@ public class Task extends RealmObject implements Serializable {
         this.mBitmapArray = bitmapArray;
     }
 
-    public Task(Date date, String title, String place, int latitude, int longitude, String content, byte[] bytes) {
+    public Listdata(Date date, String title, String place, int latitude, int longitude, String content, byte[] bytes) {
         mTitle = title;
         mDate = date;
         mPlace = place;

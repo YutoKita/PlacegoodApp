@@ -11,31 +11,30 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class ListAdapter extends BaseAdapter {
     private LayoutInflater mLayoutInflater = null;
-    private List<Task> mTaskList;
+    private List<Listdata> mListdataList;
 
     public ListAdapter(Context context) {
         mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-    public void setTaskList(List<Task> taskList) {
-        mTaskList = taskList;
+    public void setTaskList(List<Listdata> listdataList) {
+        mListdataList = listdataList;
     }
 
     @Override
     public int getCount() {
-        return mTaskList.size();
+        return mListdataList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mTaskList.get(position);
+        return mListdataList.get(position);
     }
 
     @Override
@@ -47,37 +46,37 @@ public class ListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.fragment_list, parent, false);
+            convertView = mLayoutInflater.inflate(R.layout.list_tasks, parent, false);
         }
 
         //タイトル
         TextView titleText = (TextView) convertView.findViewById(R.id.titleTextView);
-        titleText.setText(mTaskList.get(position).getTitle());
+        titleText.setText(mListdataList.get(position).getTitle());
 
         //現在日時、時間
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.JAPANESE);
-        Date date = mTaskList.get(position).getDate();
+        Date date = mListdataList.get(position).getDate();
         TextView dateText = (TextView) convertView.findViewById(R.id.dateTextView);
         dateText.setText(simpleDateFormat.format(date));
 
         //場所
         TextView placeText = (TextView) convertView.findViewById(R.id.placeTextView);
-        placeText.setText(mTaskList.get(position).getPlace());
+        placeText.setText(mListdataList.get(position).getPlace());
 
         //緯度
         TextView latitudeText = (TextView) convertView.findViewById(R.id.latitudeTextView);
-        placeText.setText(mTaskList.get(position).getLatitude());
+        latitudeText.setText(mListdataList.get(position).getLatitude());
 
         //経度
         TextView longitudeText = (TextView) convertView.findViewById(R.id.longitudeTextView);
-        placeText.setText(mTaskList.get(position).getLongitude());
+        longitudeText.setText(mListdataList.get(position).getLongitude());
 
         //コメント
         TextView contentText = (TextView) convertView.findViewById(R.id.contentTextView);
-        placeText.setText(mTaskList.get(position).getContent());
+        contentText.setText(mListdataList.get(position).getContent());
 
         //写真
-        byte[] bytes = mTaskList.get(position).getImageBytes();
+        byte[] bytes = mListdataList.get(position).getImageBytes();
         if (bytes.length != 0) {
             Bitmap image = BitmapFactory.decodeByteArray(bytes, 0, bytes.length).copy(Bitmap.Config.ARGB_8888, true);
             ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);

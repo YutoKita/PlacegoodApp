@@ -11,17 +11,14 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
 public class ListFragment extends Fragment {
-    public final static String EXTRA_TASK = "jp.north.mt.placegoodapp.Task";
+    public final static String EXTRA_TASK = "jp.north.mt.placegoodapp.Listdata";
 
     //Realmクラスを保持するmRealmを定義(メンバ変数の追加)
     private Realm mRealm;
@@ -53,10 +50,10 @@ public class ListFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // 入力・編集する画面に遷移させる
-                Task task = (Task) parent.getAdapter().getItem(position);
+                Listdata listdata = (Listdata) parent.getAdapter().getItem(position);
 
                 Intent intent = new Intent(getActivity(), InputTask.class);
-                intent.putExtra(EXTRA_TASK, Task.getId());
+                intent.putExtra(EXTRA_TASK, listdata.getId());
                 startActivity(intent);
             }
         });
@@ -68,18 +65,18 @@ public class ListFragment extends Fragment {
 
                 // タスクを削除する
 
-                final Task task = (Task) parent.getAdapter().getItem(position);
+                final Listdata listdata = (Listdata) parent.getAdapter().getItem(position);
 
                 // ダイアログを表示する
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
                 builder.setTitle("削除");
-                builder.setMessage(Task.getTitle() + "を削除しますか");
+                builder.setMessage(listdata.getTitle() + "を削除しますか");
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
-                        RealmResults<Task> results = mRealm.where(Task.class).equalTo("id", Task.getId()).findAll();
+                        RealmResults<Listdata> results = mRealm.where(Listdata.class).equalTo("id", listdata.getId()).findAll();
 
                         mRealm.beginTransaction();
                         results.deleteAllFromRealm();
@@ -109,9 +106,9 @@ public class ListFragment extends Fragment {
 
     private void reloadListView() {
         // Realmデータベースから、「全てのデータを取得して新しい日時順に並べた結果」を取得
-        RealmResults<Task> taskRealmResults = mRealm.where(Task.class).findAllSorted("mDate", Sort.DESCENDING);
+        RealmResults<Listdata> listdataRealmResults = mRealm.where(Listdata.class).findAllSorted("mDate", Sort.DESCENDING);
         // 上記の結果を、TaskList としてセットする
-        mTaskAdapter.setTaskList(mRealm.copyFromRealm(taskRealmResults));
+        mTaskAdapter.setTaskList(mRealm.copyFromRealm(listdataRealmResults));
         // TaskのListView用のアダプタに渡す
         mListView.setAdapter(mTaskAdapter);
         // 表示を更新するために、アダプターにデータが変更されたことを知らせる
