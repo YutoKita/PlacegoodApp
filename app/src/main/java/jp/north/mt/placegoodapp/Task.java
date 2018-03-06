@@ -72,6 +72,14 @@ public class Task extends RealmObject implements Serializable {
         this.mContent = content;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public byte[] getImageBytes() {
         return mBitmapArray;
     }

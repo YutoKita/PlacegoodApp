@@ -57,7 +57,6 @@ public class ListFragment extends Fragment {
 
                 Intent intent = new Intent(getActivity(), InputTask.class);
                 intent.putExtra(EXTRA_TASK, Task.getId());
-
                 startActivity(intent);
             }
         });

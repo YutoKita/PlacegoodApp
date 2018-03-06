@@ -86,16 +86,15 @@ public class InputTask extends AppCompatActivity {
             String dateString = mYear + "/" + String.format("%02d", (mMonth + 1)) + "/" + String.format("%02d", mDay);
             String timeString = String.format("%02d", mHour) + ":" + String.format("%02d", mMinute);
         }
+
+        double value1 = intent.getDoubleExtra("VALUE1", 0);
+        double value2 = intent.getDoubleExtra("VALUE2", 0);
+
+        TextView textView = (TextView) findViewById(R.id.latlngBodyText);
+        textView.setText(String.valueOf(value1)+","+String.valueOf(value2));
+
     }
     //↑Realmの設定で追加↑
-
-    Intent intent = getIntent();
-    double value1 = intent.getDoubleExtra("VALUE1", 0);
-    double value2 = intent.getDoubleExtra("VALUE2", 0);
-
-    TextView textView = (TextView) findViewById(R.id.latlngBodyText);
-        textView.setText(String.valueOf(value1)+","+String.valueOf(value2));
-//}
 
     //↓Realmの設定で追加↓
     private void addTask() {
@@ -119,6 +118,7 @@ public class InputTask extends AppCompatActivity {
         }
 
         String title = mTitleEdit.getText().toString();
+        String place = mPlaceEdit.getText().toString();
         String content = mContentEdit.getText().toString();
 
         mTask.setTitle(title);
