@@ -12,7 +12,7 @@ public class Listdata extends RealmObject implements Serializable {
     private String mPlace; //場所
     private int mLatitude; //緯度
     private int mLongitude; //経度
-    private String mContent; //コメント
+    private String mComment; //コメント
     private byte[] mBitmapArray; //写真
 
     //引数なしのコンストラクタを追加(エラー「Class "Listdata" must declare a public constructor with no arguments if it contains custom constructors.」対応)
@@ -65,11 +65,11 @@ public class Listdata extends RealmObject implements Serializable {
     }
 
     public String getContent() {
-        return mContent;
+        return mComment;
     }
 
     public void setContent(String content) {
-        this.mContent = content;
+        this.mComment = content;
     }
 
     public int getId() {
@@ -94,7 +94,7 @@ public class Listdata extends RealmObject implements Serializable {
         mPlace = place;
         mLatitude = latitude;
         mLongitude = longitude;
-        mContent = content;
+        mComment = content;
         mBitmapArray = bytes.clone();
     }
 }

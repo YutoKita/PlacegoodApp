@@ -18,7 +18,8 @@ import io.realm.RealmResults;
 public class InputTask extends AppCompatActivity {
 
     private int mYear, mMonth, mDay, mHour, mMinute;
-    private EditText mTitleEdit, mPlaceEdit, mContentEdit;
+    private EditText mTitleEdit, mPlaceEdit, mCommentEdit;
+//    private EditText mTitleEdit, mPlaceEdit;
     private Listdata mListdata;
 
     //↓決定ボタンにて追加↓
@@ -52,7 +53,7 @@ public class InputTask extends AppCompatActivity {
         findViewById(R.id.done_button).setOnClickListener(mOnDoneClickListener);
         mTitleEdit = (EditText) findViewById(R.id.titleText);
         mPlaceEdit = (EditText) findViewById(R.id.placeBodyText);
-        mContentEdit = (EditText) findViewById(R.id.contentBodyText);
+        mCommentEdit = (EditText) findViewById(R.id.contentBodyText);
 
         // EXTRA_TASK から Listdata の id を取得して、 id から Listdata のインスタンスを取得する
         Intent intent = getIntent();
@@ -73,7 +74,7 @@ public class InputTask extends AppCompatActivity {
             // 更新の場合
             mTitleEdit.setText(mListdata.getTitle());
             mPlaceEdit.setText(mListdata.getPlace());
-            mContentEdit.setText(mListdata.getContent());
+            mCommentEdit.setText(mListdata.getContent());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mListdata.getDate());
@@ -119,7 +120,7 @@ public class InputTask extends AppCompatActivity {
 
         String title = mTitleEdit.getText().toString();
         String place = mPlaceEdit.getText().toString();
-        String content = mContentEdit.getText().toString();
+        String content = mCommentEdit.getText().toString();
 
         mListdata.setTitle(title);
         mListdata.setPlace(place);
