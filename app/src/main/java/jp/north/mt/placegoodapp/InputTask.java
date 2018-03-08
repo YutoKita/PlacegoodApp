@@ -19,7 +19,6 @@ public class InputTask extends AppCompatActivity {
 
     private int mYear, mMonth, mDay, mHour, mMinute;
     private EditText mTitleEdit, mPlaceEdit, mCommentEdit;
-//    private EditText mTitleEdit, mPlaceEdit;
     private Listdata mListdata;
 
     //↓決定ボタンにて追加↓
@@ -92,7 +91,7 @@ public class InputTask extends AppCompatActivity {
         double value2 = intent.getDoubleExtra("VALUE2", 0);
 
         TextView textView = (TextView) findViewById(R.id.latlngBodyText);
-        textView.setText(String.valueOf(value1)+","+String.valueOf(value2));
+        textView.setText(String.valueOf(value1) + "," + String.valueOf(value2));
 
     }
     //↑Realmの設定で追加↑

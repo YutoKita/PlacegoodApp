@@ -87,6 +87,23 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         }
     }
 
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        //LocationManagerの取得
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
+        //パーミッション（※Fragmentのため、thisではなく、getActivity()で親のActivityを呼び出し）
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            //現在地の座標を取得
+            mMap.setMyLocationEnabled(true);
+            // Set a listener for marker click.
+            mMap.setOnMarkerClickListener(this);
+
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -105,10 +122,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //テスト
-                //Toast.makeText(getActivity(), "hoge!", Toast.LENGTH_SHORT).show();
-                double lat = mlocation.getLatitude();
-                double lng = mlocation.getLongitude();
+                double lat = 35.681167;
+                double lng = 139.767052;
+
+                if(mlocation!=null) {
+                    lat = mlocation.getLatitude();
+                    lng = mlocation.getLongitude();
+                }
+
                 //intent.putExtraはintentに処理を渡す
                 Intent intent = new Intent(getActivity(), InputTask.class);
                 intent.putExtra("VALUE1", lat);
@@ -117,24 +138,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
             }
         });
         return view;
-    }
-
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-//        mlocation = location;
-
-        //LocationManagerの取得
-        LocationManager locationManager = (LocationManager) getActivity().getSystemService(LOCATION_SERVICE);
-        //パーミッション（※Fragmentのため、thisではなく、getActivity()で親のActivityを呼び出し）
-        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            //現在地の座標を取得
-            mMap.setMyLocationEnabled(true);
-            // Set a listener for marker click.
-            mMap.setOnMarkerClickListener(this);
-
-        }
     }
 
     @Override
