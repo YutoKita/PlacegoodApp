@@ -10,8 +10,8 @@ public class Listdata extends RealmObject implements Serializable {
     private String mTitle; //タイトル
     private Date mDate; //日時
     private String mPlace; //場所
-    private int mLatitude; //緯度
-    private int mLongitude; //経度
+    private double mLatitude; //緯度
+    private double mLongitude; //経度
     private String mComment; //コメント
     private byte[] mBitmapArray; //写真
 
@@ -48,19 +48,19 @@ public class Listdata extends RealmObject implements Serializable {
         this.mPlace = place;
     }
 
-    public int getLatitude() {
+    public double getLatitude() {
         return mLatitude;
     }
 
-    public void setLatitude(int latitude) {
+    public void setLatitude(double latitude) {
         this.mLatitude = latitude;
     }
 
-    public int getLongitude() {
+    public double getLongitude() {
         return mLongitude;
     }
 
-    public void setLongitude(int longitude) {
+    public void setLongitude(double longitude) {
         this.mLongitude = longitude;
     }
 
@@ -88,7 +88,7 @@ public class Listdata extends RealmObject implements Serializable {
         this.mBitmapArray = bitmapArray;
     }
 
-    public Listdata(Date date, String title, String place, int latitude, int longitude, String content, byte[] bytes) {
+    public Listdata(Date date, String title, String place, double latitude, double longitude, String content, byte[] bytes) {
         mTitle = title;
         mDate = date;
         mPlace = place;

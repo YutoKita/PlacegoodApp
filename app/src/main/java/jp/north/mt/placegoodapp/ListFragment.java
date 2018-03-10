@@ -38,6 +38,8 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         // Realmの設定
+//        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getActivity()).build();
+//        Realm.deleteRealm(realmConfig);
         mRealm = Realm.getDefaultInstance();
         mRealm.addChangeListener(mRealmListener);
 

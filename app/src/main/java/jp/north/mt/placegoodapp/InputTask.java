@@ -18,6 +18,7 @@ import io.realm.RealmResults;
 public class InputTask extends AppCompatActivity {
 
     private int mYear, mMonth, mDay, mHour, mMinute;
+    private double mValue1,mValue2;
     private EditText mTitleEdit, mPlaceEdit, mCommentEdit;
     private Listdata mListdata;
 
@@ -26,6 +27,9 @@ public class InputTask extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             addTask();
+            //[決定]ボタン押下後、List画面に遷移させる
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(intent);
             finish();
         }
     };
@@ -87,11 +91,12 @@ public class InputTask extends AppCompatActivity {
             String timeString = String.format("%02d", mHour) + ":" + String.format("%02d", mMinute);
         }
 
-        double value1 = intent.getDoubleExtra("VALUE1", 0);
-        double value2 = intent.getDoubleExtra("VALUE2", 0);
+
+        mValue1 = intent.getDoubleExtra("VALUE1", 0);
+        mValue2 = intent.getDoubleExtra("VALUE2", 0);
 
         TextView textView = (TextView) findViewById(R.id.latlngBodyText);
-        textView.setText(String.valueOf(value1) + "," + String.valueOf(value2));
+        textView.setText(String.valueOf(mValue1) + "," + String.valueOf(mValue2));
 
     }
     //↑Realmの設定で追加↑
@@ -124,6 +129,8 @@ public class InputTask extends AppCompatActivity {
         mListdata.setTitle(title);
         mListdata.setPlace(place);
         mListdata.setContent(content);
+        mListdata.setLatitude(mValue1);
+        mListdata.setLongitude(mValue2);
         GregorianCalendar calendar = new GregorianCalendar(mYear, mMonth, mDay, mHour, mMinute);
         Date date = calendar.getTime();
         mListdata.setDate(date);

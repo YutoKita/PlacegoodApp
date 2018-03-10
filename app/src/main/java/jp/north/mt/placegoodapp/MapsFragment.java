@@ -132,6 +132,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
                 //intent.putExtraはintentに処理を渡す
                 Intent intent = new Intent(getActivity(), InputTask.class);
+//                intent.putExtra(EXTRA_TASK, task.getId());
                 intent.putExtra("VALUE1", lat);
                 intent.putExtra("VALUE2", lng);
                 startActivity(intent);
