@@ -9,6 +9,8 @@
     <!--エミュレータにてGPSを利用する場合の権限-->
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION">
     </uses-permission>
+    <!--写真を撮影して端末に保存することを許可-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".ListdataApp"

@@ -32,6 +32,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
+//    public final static String EXTRA_TASK = "jp.north.mt.placegoodapp.Listdata";
 
     private GoogleMap mMap;
     private TextView textView1;
@@ -132,7 +133,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
 
                 //intent.putExtraはintentに処理を渡す
                 Intent intent = new Intent(getActivity(), InputTask.class);
-//                intent.putExtra(EXTRA_TASK, task.getId());
+//                intent.putExtra(EXTRA_TASK, getId());
                 intent.putExtra("VALUE1", lat);
                 intent.putExtra("VALUE2", lng);
                 startActivity(intent);
