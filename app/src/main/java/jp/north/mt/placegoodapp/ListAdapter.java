@@ -58,11 +58,11 @@ public class ListAdapter extends BaseAdapter {
         Date date = mListdataList.get(position).getDate();
         TextView dateText = (TextView) convertView.findViewById(R.id.dateTextView);
         //setText メソッドに数値を入れるとエラーになるので文字列化
-        dateText.setText("" +simpleDateFormat.format(date));
+        dateText.setText("" + simpleDateFormat.format(date));
 
         //場所
         TextView placeText = (TextView) convertView.findViewById(R.id.placeTextView);
-        placeText.setText("" +mListdataList.get(position).getPlace());
+        placeText.setText("" + mListdataList.get(position).getPlace());
 
         //緯度
         TextView latitudeText = (TextView) convertView.findViewById(R.id.latitudeTextView);
@@ -70,15 +70,15 @@ public class ListAdapter extends BaseAdapter {
 
         //経度
         TextView longitudeText = (TextView) convertView.findViewById(R.id.longitudeTextView);
-        longitudeText.setText("" +mListdataList.get(position).getLongitude());
+        longitudeText.setText("" + mListdataList.get(position).getLongitude());
 
         //コメント
         TextView contentText = (TextView) convertView.findViewById(R.id.contentTextView);
-        contentText.setText("" +mListdataList.get(position).getContent());
+        contentText.setText("" + mListdataList.get(position).getContent());
 
         //写真
         byte[] bytes = mListdataList.get(position).getImageBytes();
-        if (bytes!=null && bytes.length != 0) {
+        if (bytes != null && bytes.length != 0) {
             Bitmap image = BitmapFactory.decodeByteArray(bytes, 0, bytes.length).copy(Bitmap.Config.ARGB_8888, true);
             ImageView imageView = (ImageView) convertView.findViewById(R.id.imageView);
             imageView.setImageBitmap(image);

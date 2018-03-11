@@ -86,6 +86,9 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
         mPlaceEdit = (EditText) findViewById(R.id.placeBodyText);
         mCommentEdit = (EditText) findViewById(R.id.contentBodyText);
 
+        mImageView = (ImageView) findViewById(R.id.imageView);
+        mImageView.setOnClickListener(this);
+
         // EXTRA_TASK から Listdata の id を取得して、 id から Listdata のインスタンスを取得する
         Intent intent = getIntent();
         int taskId = intent.getIntExtra(ListFragment.EXTRA_TASK, -1);
@@ -106,6 +109,13 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             mTitleEdit.setText(mListdata.getTitle());
             mPlaceEdit.setText(mListdata.getPlace());
             mCommentEdit.setText(mListdata.getContent());
+
+            double lat = mListdata.getLatitude();
+            double lng = mListdata.getLongitude();
+            String lat_s = String.valueOf(lat);
+            String lng_s = String.valueOf(lng);
+            mValue1 = lat;
+            mValue2 = lng;
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mListdata.getDate());
@@ -293,8 +303,5 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
         startActivityForResult(chooserIntent, CHOOSER_REQUEST_CODE);
     }
-
     //↑画像保存処理により追加↑
-
-
 }
