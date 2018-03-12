@@ -191,7 +191,15 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             }
 
             // 画像を取得
-            Uri uri = (data == null || data.getData() == null) ? mPictureUri : data.getData();
+//            Uri uri = (data == null || data.getData() == null) ? mPictureUri : data.getData();
+            Uri uri;
+            if (data == null) {
+                uri = mPictureUri;
+            } else if (data.getData() == null) {
+                uri = mPictureUri;
+            } else {
+                uri = data.getData();
+            }
 
             // URIからBitmapを取得する
             Bitmap image;
