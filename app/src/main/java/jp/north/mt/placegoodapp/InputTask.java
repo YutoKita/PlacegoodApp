@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -257,6 +258,8 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
                 data.put("image", bitmapString);
             }
+
+
         }
     }
 
@@ -298,5 +301,7 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
         startActivityForResult(chooserIntent, CHOOSER_REQUEST_CODE);
     }
+    //ボタン押したら保存する処理
+
     //↑画像保存処理により追加↑
 }
