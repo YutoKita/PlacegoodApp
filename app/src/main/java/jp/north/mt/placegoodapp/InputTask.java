@@ -104,6 +104,8 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             mDay = calendar.get(Calendar.DAY_OF_MONTH);
             mHour = calendar.get(Calendar.HOUR_OF_DAY);
             mMinute = calendar.get(Calendar.MINUTE);
+            mValue1 = intent.getDoubleExtra("VALUE1", 0);
+            mValue2 = intent.getDoubleExtra("VALUE2", 0);
         } else {
             // 更新の場合
             mTitleEdit.setText(mListdata.getTitle());
@@ -112,8 +114,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
             double lat = mListdata.getLatitude();
             double lng = mListdata.getLongitude();
-            String lat_s = String.valueOf(lat);
-            String lng_s = String.valueOf(lng);
             mValue1 = lat;
             mValue2 = lng;
 
@@ -128,9 +128,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             String dateString = mYear + "/" + String.format("%02d", (mMonth + 1)) + "/" + String.format("%02d", mDay);
             String timeString = String.format("%02d", mHour) + ":" + String.format("%02d", mMinute);
         }
-
-        mValue1 = intent.getDoubleExtra("VALUE1", 0);
-        mValue2 = intent.getDoubleExtra("VALUE2", 0);
 
         TextView textView = (TextView) findViewById(R.id.latlngBodyText);
         textView.setText(String.valueOf(mValue1) + "," + String.valueOf(mValue2));
@@ -218,8 +215,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
             // BitmapをImageViewに設定する
             mImageView.setImageBitmap(resizedImage);
-
-            mPictureUri = null;
         }
     }
 
