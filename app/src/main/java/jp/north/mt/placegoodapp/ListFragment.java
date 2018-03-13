@@ -13,7 +13,6 @@ import android.widget.ListView;
 
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
-import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
@@ -38,8 +37,6 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list, container, false);
         // Realmの設定
-//        RealmConfiguration realmConfig = new RealmConfiguration.Builder(getActivity()).build();
-//        Realm.deleteRealm(realmConfig);
         mRealm = Realm.getDefaultInstance();
         mRealm.addChangeListener(mRealmListener);
 
@@ -66,7 +63,6 @@ public class ListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 // タスクを削除する
-
                 final Listdata listdata = (Listdata) parent.getAdapter().getItem(position);
 
                 // ダイアログを表示する
@@ -120,7 +116,6 @@ public class ListFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-
         mRealm.close();
     }
 }

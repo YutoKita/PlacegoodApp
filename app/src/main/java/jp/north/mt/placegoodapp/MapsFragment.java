@@ -11,7 +11,6 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -25,6 +24,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -32,7 +32,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
-//    public final static String EXTRA_TASK = "jp.north.mt.placegoodapp.Listdata";
 
     private GoogleMap mMap;
     private TextView textView1;
@@ -64,7 +63,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         mMap.addMarker(new MarkerOptions()
 //                .position(new LatLng(lat, lng))
                 .position(new LatLng(10.1111, 10.1111))
-                .title("Hello world"));
+
+//                .title("Hello world"));
+                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
     }
 
     private void startLocation() {
@@ -103,6 +104,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
             mMap.setOnMarkerClickListener(this);
 
         }
+        //Realm情報を取得（緯度、経度、タイトル）
+        //LOOP処理 TODO
+
     }
 
     @Nullable
@@ -126,14 +130,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                 double lat = 35.681167;
                 double lng = 139.767052;
 
-                if(mlocation!=null) {
+                if (mlocation != null) {
                     lat = mlocation.getLatitude();
                     lng = mlocation.getLongitude();
                 }
 
                 //intent.putExtraはintentに処理を渡す
                 Intent intent = new Intent(getActivity(), InputTask.class);
-//                intent.putExtra(EXTRA_TASK, getId());
                 intent.putExtra("VALUE1", lat);
                 intent.putExtra("VALUE2", lng);
                 startActivity(intent);
@@ -182,7 +185,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
                     0,
                     this);
         }
-
         super.onResume();
     }
 
@@ -191,7 +193,6 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         if (locationManager != null) {
             locationManager.removeUpdates(this);
         }
-
         super.onPause();
     }
 

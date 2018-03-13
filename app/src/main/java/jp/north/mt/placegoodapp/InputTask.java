@@ -16,7 +16,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
@@ -26,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -50,6 +48,7 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
     private Button mDoneButton;
     private Uri mPictureUri;
     private ImageView mImageView;
+    private byte[] mBitmapArray;
 
     //↓決定ボタンにて追加↓
     private View.OnClickListener mOnDoneClickListener = new View.OnClickListener() {
@@ -118,6 +117,14 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             mValue1 = lat;
             mValue2 = lng;
 
+            byte[] bitmap = mListdata.getImageBytes();
+            mBitmapArray = bitmap;
+
+            if (mBitmapArray.length != 0) {
+                Bitmap image = BitmapFactory.decodeByteArray(mBitmapArray, 0, mBitmapArray.length).copy(Bitmap.Config.ARGB_8888, true);
+                mImageView.setImageBitmap(image);
+            }
+
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(mListdata.getDate());
             mYear = calendar.get(Calendar.YEAR);
@@ -129,10 +136,8 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             String dateString = mYear + "/" + String.format("%02d", (mMonth + 1)) + "/" + String.format("%02d", mDay);
             String timeString = String.format("%02d", mHour) + ":" + String.format("%02d", mMinute);
         }
-
         TextView textView = (TextView) findViewById(R.id.latlngBodyText);
         textView.setText(String.valueOf(mValue1) + "," + String.valueOf(mValue2));
-
     }
     //↑Realmの設定で追加↑
 
@@ -166,6 +171,7 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
         mListdata.setContent(content);
         mListdata.setLatitude(mValue1);
         mListdata.setLongitude(mValue2);
+        mListdata.setImageBytes(mBitmapArray);
         GregorianCalendar calendar = new GregorianCalendar(mYear, mMonth, mDay, mHour, mMinute);
         Date date = calendar.getTime();
         mListdata.setDate(date);
@@ -191,7 +197,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             }
 
             // 画像を取得
-//            Uri uri = (data == null || data.getData() == null) ? mPictureUri : data.getData();
             Uri uri;
             if (data == null) {
                 uri = mPictureUri;
@@ -222,6 +227,11 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
             Bitmap resizedImage = Bitmap.createBitmap(image, 0, 0, imageWidth, imageHeight, matrix, true);
 
+            //ByteArrayOutputStreamクラスを用意
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            //PNGで画像を保存
+            resizedImage.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            mBitmapArray = byteArrayOutputStream.toByteArray();
             // BitmapをImageViewに設定する
             mImageView.setImageBitmap(resizedImage);
         }
@@ -238,7 +248,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
                 } else {
                     // 許可されていないので許可ダイアログを表示する
                     requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSIONS_REQUEST_CODE);
-
                     return;
                 }
             } else {
@@ -266,8 +275,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
                 data.put("image", bitmapString);
             }
-
-
         }
     }
 
@@ -309,7 +316,5 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
         startActivityForResult(chooserIntent, CHOOSER_REQUEST_CODE);
     }
-    //ボタン押したら保存する処理
-
     //↑画像保存処理により追加↑
 }
