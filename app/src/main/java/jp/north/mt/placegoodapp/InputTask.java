@@ -85,9 +85,9 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
         mTitleEdit = (EditText) findViewById(R.id.titleText);
         mPlaceEdit = (EditText) findViewById(R.id.placeBodyText);
         mCommentEdit = (EditText) findViewById(R.id.contentBodyText);
-
         mImageView = (ImageView) findViewById(R.id.imageView);
-        mImageView.setOnClickListener(this);
+
+            mImageView.setOnClickListener(this);
 
         // EXTRA_TASK から Listdata の id を取得して、 id から Listdata のインスタンスを取得する
         Intent intent = getIntent();
@@ -120,7 +120,9 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
             byte[] bitmap = mListdata.getImageBytes();
             mBitmapArray = bitmap;
 
-            if (mBitmapArray.length != 0) {
+            //NullPointerExceptionの例外エラー対応
+            if (mBitmapArray != null && mBitmapArray.length != 0) {
+//            if (mBitmapArray.length != 0) {
                 Bitmap image = BitmapFactory.decodeByteArray(mBitmapArray, 0, mBitmapArray.length).copy(Bitmap.Config.ARGB_8888, true);
                 mImageView.setImageBitmap(image);
             }
