@@ -29,6 +29,12 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+import io.realm.Realm;
+import io.realm.RealmChangeListener;
+import io.realm.Sort;
+
 import static android.content.Context.LOCATION_SERVICE;
 
 public class MapsFragment extends Fragment implements OnMapReadyCallback, LocationListener, GoogleMap.OnMarkerClickListener {
@@ -38,6 +44,9 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     private TextView textView2;
     private Location mlocation;
     private LocationManager locationManager = null;
+
+    private Realm mRealm;
+
     //検索ボタン機能追加のためメンバ変数追加
     Button mRegist_button;
 
@@ -106,7 +115,20 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         }
         //Realm情報を取得（緯度、経度、タイトル）
         //LOOP処理 TODO
+        // Realmの設定
+        mRealm = Realm.getDefaultInstance();
+        ArrayList<Listdata> listDataArray;
+        listDataArray = mRealm.copyFromRealm();
 
+//        var result;
+//        ArrayList<Listdata> listDataArray = mRealm.where(Listdata.class).findAllSorted("mDate", Sort.DESCENDING);
+//        result = mRealm.copyFromRealm(listDataArray);
+
+        for (Listdata listData : listDataArray) {
+            mMap.addMarker(new MarkerOptions()
+                    .position(new LatLng(listData.getLatitude(), listData.getLongitude()))
+                    .title(listData.getTitle()));
+        }
     }
 
     @Nullable
