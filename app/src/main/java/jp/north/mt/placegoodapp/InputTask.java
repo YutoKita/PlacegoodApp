@@ -122,7 +122,6 @@ public class InputTask extends AppCompatActivity implements View.OnClickListener
 
             //NullPointerExceptionの例外エラー対応
             if (mBitmapArray != null && mBitmapArray.length != 0) {
-//            if (mBitmapArray.length != 0) {
                 Bitmap image = BitmapFactory.decodeByteArray(mBitmapArray, 0, mBitmapArray.length).copy(Bitmap.Config.ARGB_8888, true);
                 mImageView.setImageBitmap(image);
             }

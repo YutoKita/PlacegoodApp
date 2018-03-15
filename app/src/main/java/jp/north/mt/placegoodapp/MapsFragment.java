@@ -29,10 +29,8 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import java.util.ArrayList;
-
 import io.realm.Realm;
-import io.realm.RealmChangeListener;
+import io.realm.RealmResults;
 import io.realm.Sort;
 
 import static android.content.Context.LOCATION_SERVICE;
@@ -44,6 +42,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
     private TextView textView2;
     private Location mlocation;
     private LocationManager locationManager = null;
+    private ListAdapter mTaskAdapter;
 
     private Realm mRealm;
 
@@ -68,13 +67,16 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
         double lat = mlocation.getLatitude();
         double lng = mlocation.getLongitude();
 
-        //現在地にマーカーをつける
-        mMap.addMarker(new MarkerOptions()
-//                .position(new LatLng(lat, lng))
-                .position(new LatLng(10.1111, 10.1111))
-
-//                .title("Hello world"));
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        mRealm = Realm.getDefaultInstance();
+        RealmResults<Listdata> listDataArray = mRealm.where(Listdata.class).findAllSorted("mDate", Sort.DESCENDING);
+        if (mTaskAdapter != null) {
+            mTaskAdapter.setTaskList(mRealm.copyFromRealm(listDataArray));
+            for (Listdata listData : listDataArray) {
+                mMap.addMarker(new MarkerOptions()
+                        .position(new LatLng(listData.getLatitude(), listData.getLongitude()))
+                        .title(listData.getTitle()));
+            }
+        }
     }
 
     private void startLocation() {
@@ -113,28 +115,15 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Locati
             mMap.setOnMarkerClickListener(this);
 
         }
-        //Realm情報を取得（緯度、経度、タイトル）
-        //LOOP処理 TODO
-        // Realmの設定
-        mRealm = Realm.getDefaultInstance();
-        ArrayList<Listdata> listDataArray;
-        listDataArray = mRealm.copyFromRealm();
-
-//        var result;
-//        ArrayList<Listdata> listDataArray = mRealm.where(Listdata.class).findAllSorted("mDate", Sort.DESCENDING);
-//        result = mRealm.copyFromRealm(listDataArray);
-
-        for (Listdata listData : listDataArray) {
-            mMap.addMarker(new MarkerOptions()
-                    .position(new LatLng(listData.getLatitude(), listData.getLongitude()))
-                    .title(listData.getTitle()));
-        }
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+
+        // ListViewの設定
+        mTaskAdapter = new ListAdapter(getActivity());
 
         SupportMapFragment mapFragment = (SupportMapFragment) this.getChildFragmentManager()
                 .findFragmentById(R.id.fragment_maps);
